@@ -1,16 +1,3 @@
----
-title: "我把 4 年踩坑经验「蒸馏」成 Claude Code Skill 开源了"
-description: "Code Review 通过了，并发 Bug 还是上了生产？这篇讲我如何用一个开源 Claude Code Skill 把 Critical Bug 发现率从 40% 提到 95%，核心是 4 轮独立交叉验证。"
-date: "2026-05-04"
-keywords: ["Claude Code", "Claude Code Skill", "Superpowers", "交叉验证", "代码Review", "并发Bug", "幂等性", "高风险特性开发"]
-platform: "微信公众号"
-source: "个人实践"
-alt_titles:
-  - "Code Review 通过了，并发 Bug 为什么还是上了生产？"
-  - "Critical Bug 发现率从 40% 提到 95%，一个开源 Claude Skill 做到的"
-  - "那次幂等 Bug 上了生产，我写了这套 Claude Skill 防自己再犯"
-  - "2025 了，高风险改动还靠单轮 Code Review？我们犯过这个错"
----
 
 ![封面图](https://cdn.jsdelivr.net/gh/MageByte-Zero/magebyte-power@main/images/cross-verified-skill-intro/cross-verified-skill-intro-cover.png)
 
