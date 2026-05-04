@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet">
+  <title>Cover</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 900px; height: 500px; overflow: hidden; background: #09010c; }
+
+    .cover {
+      width: 900px;
+      height: 500px;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 15% 40%, #1a0a2e 0%, #0a0d18 45%, #040912 100%);
+      font-family: 'Noto Serif SC', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+      color: #f1f5f9;
+    }
+
+    /* Grid texture */
+    .grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(139, 92, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139, 92, 246, 0.04) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+
+    /* Glow orbs */
+    .glow-amber {
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.14) 0%, transparent 65%);
+      top: -120px; left: -60px;
+      pointer-events: none;
+    }
+    .glow-green {
+      position: absolute;
+      width: 380px; height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 65%);
+      bottom: -80px; right: 160px;
+      pointer-events: none;
+    }
+    .glow-violet {
+      position: absolute;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.14) 0%, transparent 65%);
+      top: 20px; right: 60px;
+      pointer-events: none;
+    }
+
+    /* Faint code watermark on the right */
+    .code-watermark {
+      position: absolute;
+      right: 0; top: 0;
+      width: 300px; height: 100%;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 9.5px;
+      color: #22c55e;
+      line-height: 1.9;
+      padding: 22px 20px;
+      opacity: 0.065;
+      overflow: hidden;
+      white-space: pre;
+      pointer-events: none;
+    }
+
+    /* Vertical separator */
+    .separator {
+      position: absolute;
+      left: 582px; top: 32px; bottom: 32px;
+      width: 1px;
+      background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(99, 102, 241, 0.25) 20%,
+        rgba(99, 102, 241, 0.25) 80%,
+        transparent 100%
+      );
+    }
+
+    /* Left panel */
+    .left-panel {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 582px;
+      padding: 44px 48px 38px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .skill-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.28);
+      border-radius: 3px;
+      padding: 4px 11px 4px 9px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: #fbbf24;
+      letter-spacing: 0.3px;
+      width: fit-content;
+    }
+
+    .skill-tag::before {
+      content: '//';
+      color: #475569;
+      margin-right: 2px;
+    }
+
+    .title-block {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10px 0;
+    }
+
+    .t1 {
+      font-size: 31px;
+      font-weight: 900;
+      color: #f1f5f9;
+      line-height: 1.15;
+      letter-spacing: -0.3px;
+    }
+
+    .t1 .hl {
+      color: #f59e0b;
+    }
+
+    .t2 {
+      font-size: 29px;
+      font-weight: 700;
+      color: #e2e8f0;
+      line-height: 1.25;
+      margin-top: 6px;
+      letter-spacing: -0.2px;
+    }
+
+    .t3 {
+      font-size: 29px;
+      font-weight: 900;
+      color: #c4b5fd;
+      line-height: 1.25;
+      margin-top: 2px;
+      letter-spacing: -0.2px;
+    }
+
+    .skill-name-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #10b981;
+      background: rgba(16, 185, 129, 0.07);
+      border: 1px solid rgba(16, 185, 129, 0.22);
+      border-radius: 3px;
+      padding: 5px 12px;
+      width: fit-content;
+    }
+
+    .skill-name-pill::before {
+      content: '▸';
+      font-size: 9px;
+    }
+
+    /* Right panel */
+    .right-panel {
+      position: absolute;
+      left: 582px; top: 0; right: 0; bottom: 0;
+      padding: 44px 30px 38px 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .stat-section {}
+
+    .stat-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 14px;
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .stat-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .stat-from {
+      font-size: 50px;
+      color: #f87171;
+      text-shadow: 0 0 28px rgba(248, 113, 113, 0.45);
+    }
+
+    .stat-arrow-sym {
+      font-size: 22px;
+      color: #4b5563;
+      margin: 0 2px;
+      align-self: center;
+    }
+
+    .stat-to {
+      font-size: 58px;
+      color: #34d399;
+      text-shadow: 0 0 32px rgba(52, 211, 153, 0.55);
+    }
+
+    .stat-unit {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #4b5563;
+      margin-top: 6px;
+      line-height: 1.7;
+    }
+
+    .stat-label-main {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      color: #94a3b8;
+      margin-top: 10px;
+    }
+
+    /* Bottom meta */
+    .bottom-meta {}
+
+    .gh-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      color: #374151;
+      margin-bottom: 7px;
+    }
+
+    .gh-link svg {
+      fill: #374151;
+      flex-shrink: 0;
+    }
+
+    .blog-sig {
+      font-size: 13px;
+      font-weight: 700;
+      color: #374151;
+      letter-spacing: 1px;
+    }
+
+    /* Accent lines */
+    .line-bottom {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        #f59e0b 15%,
+        #f59e0b 40%,
+        #10b981 60%,
+        transparent 90%
+      );
+    }
+
+    .line-top {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1.5px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(139, 92, 246, 0.5) 40%,
+        transparent 100%
+      );
+    }
+
+    /* Corner accent */
+    .corner-tl {
+      position: absolute;
+      top: 0; left: 0;
+      width: 28px; height: 28px;
+      border-top: 2px solid rgba(245, 158, 11, 0.4);
+      border-left: 2px solid rgba(245, 158, 11, 0.4);
+    }
+    .corner-br {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 28px; height: 28px;
+      border-bottom: 2px solid rgba(16, 185, 129, 0.35);
+      border-right: 2px solid rgba(16, 185, 129, 0.35);
+    }
+  </style>
+</head>
+<body>
+<div class="cover">
+  <div class="grid-bg"></div>
+  <div class="glow-amber"></div>
+  <div class="glow-green"></div>
+  <div class="glow-violet"></div>
+
+  <div class="code-watermark">dispatch_agent({
+  branch: "feature/refund",
+  context: "cold",
+  no_design_doc: true
+})
+
+// Phase 4.2: cold review
+// reviewer sees: code only
+
+[CRITICAL] idempotency race
+  → window between lock
+    write and read
+[HIGH] lock granularity
+  → PENDING state not
+    covered
+[HIGH] nil dereference
+  → empty tx state
+[MEDIUM] cross-service
+  → MQ consumer not
+    updated
+
+// bugs found: 12
+// from code review: 0
+// coverage: ~95%</div>
+
+  <div class="separator"></div>
+
+  <div class="left-panel">
+    <div class="skill-tag">Claude Code Skill / 开源</div>
+
+    <div class="title-block">
+      <div class="t1">我把 <span class="hl">4 年</span>踩坑经验</div>
+      <div class="t2">「蒸馏」成 Claude Code Skill</div>
+      <div class="t3">开源了</div>
+    </div>
+
+    <div class="skill-name-pill">cross-verified-feature-development</div>
+  </div>
+
+  <div class="right-panel">
+    <div class="stat-section">
+      <div class="stat-eyebrow">Critical Bug 发现率</div>
+      <div class="stat-row">
+        <span class="stat-num stat-from">40%</span>
+        <span class="stat-arrow-sym">→</span>
+        <span class="stat-num stat-to">95%</span>
+      </div>
+      <div class="stat-unit">// 4-round cross verification</div>
+      <div class="stat-label-main">4 轮独立视角验证</div>
+    </div>
+
+    <div class="bottom-meta">
+      <div class="gh-link">
+        <svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        github.com/MageByte-Zero/magebyte-power
+      </div>
+      <div class="blog-sig">码哥字节</div>
+    </div>
+  </div>
+
+  <div class="line-bottom"></div>
+  <div class="line-top"></div>
+  <div class="corner-tl"></div>
+  <div class="corner-br"></div>
+</div>
+</body>
+</html>
