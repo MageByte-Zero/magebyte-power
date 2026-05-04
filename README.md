@@ -90,6 +90,8 @@ Single-perspective review has structural blind spots. Even experienced developer
 
 > Design → Implement → **Multi-round cross-verification** → Fix → Carefully simplify → Sync docs
 
+![Single-perspective review blind spot vs multi-round independent verification](images/cross-verified-skill-intro/review-blindspot-diagram.png)
+
 ### How Superpowers powers each phase
 
 | Phase | Superpowers skill | What it adds |
@@ -134,6 +136,8 @@ None of the above?  →  Standard workflow is fine ✓
 ⑦ Doc Sync                 → backfill evolution log + notify downstream
 ```
 
+![7-phase workflow diagram](images/cross-verified-skill-intro/7-phase-workflow.png)
+
 ### The 4 verification passes
 
 | Pass | Perspective | Typical findings |
@@ -143,6 +147,8 @@ None of the above?  →  Standard workflow is fine ✓
 | 4.3 Behavior-Preservation Diff | Master vs feature side-effects | 2–5 semantic regressions |
 | 4.4 Cross-Repo Impact Scan | Other repos that may need changes | 0–3 external impact points |
 | 4.5 Business Invariant Matrix | Hard constraints (money/state/inventory) | 0–2 invariant violations |
+
+![4-round cross-verification comparison](images/cross-verified-skill-intro/4-rounds-comparison.png)
 
 Passes 4.3–4.5 can be dispatched in parallel via subagents.
 
@@ -187,6 +193,10 @@ Skills in this repo are distilled from real engineering experience. The best con
 2. Add supporting files in `skills/<skill-name>/references/`
 3. Test it on real tasks before submitting
 4. Open a PR describing the domain and what problem it solves
+
+---
+
+📖 **Read the full story (Chinese):** [我把 4 年踩坑经验「蒸馏」成 Claude Code Skill 开源了](articles/cross-verified-skill-intro.md) — how production incidents shaped every phase of this workflow.
 
 ---
 

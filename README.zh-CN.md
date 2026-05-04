@@ -90,6 +90,8 @@ ls ~/.claude/skills/cross-verified-feature-development/SKILL.md
 
 > 设计 → 实施 → **多轮交叉验证** → 修复 → 谨慎简化 → 文档同步
 
+![单一视角 Review 盲点 vs 多轮独立验证](images/cross-verified-skill-intro/review-blindspot-diagram.png)
+
 ### Superpowers 在各阶段的增强
 
 | 阶段 | Superpowers skill | 增强内容 |
@@ -136,6 +138,8 @@ ls ~/.claude/skills/cross-verified-feature-development/SKILL.md
 ⑦ 文档同步         → 回填 evolution log + 下游通知
 ```
 
+![7 阶段工作流](images/cross-verified-skill-intro/7-phase-workflow.png)
+
 每个阶段都有明确的 **Exit Criteria**（完成标准检查列表）。
 
 ### 4 轮验证详解
@@ -147,6 +151,8 @@ ls ~/.claude/skills/cross-verified-feature-development/SKILL.md
 | 4.3 行为保持 diff | 对比 master vs feature 副作用 | 2–5 处语义回归 |
 | 4.4 跨仓库影响扫描 | 识别其他仓库的联动影响 | 0–3 个外部影响点 |
 | 4.5 业务不变式矩阵 | 资金/状态机/库存的硬约束验证 | 0–2 个不变式被破坏 |
+
+![4 轮独立视角验证对比](images/cross-verified-skill-intro/4-rounds-comparison.png)
 
 4.3–4.5 可以并行 dispatch 多个 subagent，大幅节省时间。
 
@@ -193,6 +199,10 @@ ls ~/.claude/skills/cross-verified-feature-development/SKILL.md
 2. 把参考文件放在 `skills/<skill-name>/references/`
 3. 在真实任务上测试后再提交 PR
 4. PR 描述中说明领域背景和解决的问题
+
+---
+
+📖 **延伸阅读：**[我把 4 年踩坑经验「蒸馏」成 Claude Code Skill 开源了](articles/cross-verified-skill-intro.md) —— 这套工作流背后的生产事故故事。
 
 ---
 
